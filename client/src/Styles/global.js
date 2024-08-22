@@ -271,7 +271,22 @@ export const GlobalStyles = createGlobalStyle`
         animation-timing-function: ease;
         
     }
+    .cursor-right {
+        border-right: 2px solid #D5FE65;
+        animation: blinkRight 850ms step-start infinite;
+        animation-timing-function: ease;
+        
+    }
+    
     @keyframes blink {
+        0%, 100% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+    @keyframes blinkRight {
         0%, 100% {
             opacity: 0;
         }
@@ -285,6 +300,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     .incorrect{
         color: darkred;
+        text-decoration: underline;
     }
 
 `
