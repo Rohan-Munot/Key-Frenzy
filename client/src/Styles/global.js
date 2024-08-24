@@ -302,5 +302,85 @@ export const GlobalStyles = createGlobalStyle`
         color: darkred;
         text-decoration: underline;
     }
-
+    
+    
+    .footer{
+        margin-top: auto;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 0 120px;
+        background-color: #0f1114;
+        color: #ffffff;
+        overflow: hidden;
+        box-sizing: border-box;
+        text-align: left;
+        font-size: 12px;
+        font-family: 'DM Sans', sans-serif;
+    }
+    .frame-parent{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-color: #0f1114;
+        gap: 28px;
+    }
+    .frame-group{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+    .wrapper{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 48px;
+    }
+    .name-text{
+        position: relative;
+        line-height: 20px;
+    }
+    .link-parent{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+    .link-text{
+        position: relative;
+        line-height: 16px;
+        font-weight: 500;
+    }
+    .divider-2{
+        width: 4px;
+        position: relative;
+        background-color: #262629;
+        height: 28px;
+    }
+    .logo-parent{
+        width: 15px;
+        position: relative;
+        height: 15px;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    .logo-parent-linkedin{
+        position: relative;
+        background-color: #fff;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 3px;
+        box-sizing: border-box;
+    }
 `

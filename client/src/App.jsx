@@ -1,17 +1,16 @@
-import {TypeBox} from "./Components/TypeBox.jsx";
-import {SettingsBar} from "./Components/SettingsBar.jsx";
-import {GlobalStyles} from "./Styles/global.js";
-import {Navbar} from "./Components/Navbar.jsx";
-import {Info} from "./Components/Info.jsx";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Typing} from "./Pages/Typing.jsx";
+import {Results} from "./Pages/Results.jsx";
 
 function App() {
    return (
     <div className={'canvas'}>
-        <GlobalStyles/>
-        <Navbar />
-        {/*<SettingsBar />*/}
-        <Info/>
-        <TypeBox/>
+        <BrowserRouter>
+            <Routes>
+                <Route path={'/'} element={<Typing />} />
+                <Route path={'/results'} element={<Results/>} />
+            </Routes>
+        </BrowserRouter>
     </div>
   )
 }

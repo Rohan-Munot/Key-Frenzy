@@ -1,22 +1,35 @@
-import {createRef, useEffect, useMemo, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import {generate} from 'random-words'
 
+
 export function TypeBox() {
     const [wordsArray, setWordsArray] = useState(()=>{
-        return generate(38)
+        return generate(36)
     })
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
     const [typedWords, setTypedWords] = useState(Array(wordsArray.length).fill([]))
+    const [startTime, setStartTime] = useState(null)
+    const [wpm, setWpm] = useState(0)
+    const[accuracy, setAccuracy] = useState(0)
     const inputRef = useRef(null)
 
 
     const handleKeyDown = (e) => {
         const keyPressed = e.key
-        console.log(e.key)
+        // console.log(e.key)
+        const ignoredKeys = ['Shift','Meta', 'Alt', 'Control','CapsLock','Tab','Escape','ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
+        if (ignoredKeys.includes(keyPressed)){
+            return
+        }
         const currentWord = wordsArray[currentWordIndex]
         const currentChar = currentWord[currentCharIndex]
+
+        // Timer starts
+        if(!startTime){
+            setStartTime(Date.now())
+        }
 
         if (keyPressed === currentChar){
             setCurrentCharIndex((prevState)=>prevState+1)
@@ -51,6 +64,29 @@ export function TypeBox() {
                 return newTypedWords;
             })
         }
+
+    //     Check if all words are typed and stop timer
+        if (currentWordIndex === wordsArray.length-1 && currentCharIndex+1 === currentWord.length ){
+            const endTime = Date.now()
+            const timeTaken = (endTime-startTime)/60000 // Time in minutes
+
+            const totalCharacters = typedWords.flat().length
+            const correctCharacters = typedWords.flat().filter(char => char.correct).length
+
+        //     Calculate WPM
+            const calculatedWPM = (totalCharacters/5)/timeTaken;
+        //     Calculate Accuracy
+            const calculatedAccuracy = (correctCharacters/totalCharacters)*100
+
+            setWpm(Math.round(calculatedWPM))
+            setAccuracy(Math.round(calculatedAccuracy))
+
+            inputRef.current.blur()
+
+            console.log('WPM '+ calculatedWPM)
+            console.log('Accuracy: ' + calculatedAccuracy)
+        }
+
     }
     const focusInput =()=>{
         inputRef.current.focus()
@@ -58,8 +94,6 @@ export function TypeBox() {
     useEffect(() => {
         focusInput()
     }, []);
-
-
 
     return (
         <>
