@@ -13,7 +13,9 @@ export function Footer() {
                         <div className={'wrapper'}>
                             <span className={'name-text'}>Rohan Munot : </span>
                         </div>
-                        <div className={'link-parent'}>
+                        <div className={'link-parent'} onClick={()=>{
+                            window.open("https://github.com/Rohan-Munot","_blank")
+                        }} >
                             <GithubLogo />
                             <div className={'link-text'}>Github</div>
                         </div>

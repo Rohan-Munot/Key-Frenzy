@@ -1,11 +1,10 @@
 import {useEffect, useRef, useState} from "react";
-
 import {generate} from 'random-words'
 
 
 export function TypeBox() {
     const [wordsArray, setWordsArray] = useState(()=>{
-        return generate(36)
+        return generate(12)
     })
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -13,8 +12,8 @@ export function TypeBox() {
     const [startTime, setStartTime] = useState(null)
     const [wpm, setWpm] = useState(0)
     const[accuracy, setAccuracy] = useState(0)
+    const [isCompleted, setIsCompleted] = useState(false)
     const inputRef = useRef(null)
-
 
     const handleKeyDown = (e) => {
         const keyPressed = e.key
@@ -80,14 +79,17 @@ export function TypeBox() {
 
             setWpm(Math.round(calculatedWPM))
             setAccuracy(Math.round(calculatedAccuracy))
-
+            setIsCompleted(true)
             inputRef.current.blur()
-
-            console.log('WPM '+ calculatedWPM)
-            console.log('Accuracy: ' + calculatedAccuracy)
         }
-
     }
+    useEffect(() => {
+        if(isCompleted){
+            console.log('WPM '+ wpm)
+            console.log('Accuracy: ' + accuracy)
+        }
+    },[isCompleted, wpm, accuracy])
+
     const focusInput =()=>{
         inputRef.current.focus()
     }
@@ -97,30 +99,42 @@ export function TypeBox() {
 
     return (
         <>
-            <div className={'typebox'} onClick={focusInput}>
-                <div className={'words'}>
-                    {
-                        wordsArray.map((word, wordIndex) => (
-                            <span key={wordIndex} className={'word'}>
-                                {word.split('').map((char, charIndex) => {
-                                    // Determine if the character is correctly or incorrectly typed
-                                    const typedChar = typedWords[wordIndex][charIndex];
-                                    const isCorrect = typedChar && typedChar.correct;
-                                    const shouldCursor = wordIndex === currentWordIndex && charIndex === currentCharIndex;
-                                    const shouldCursorRight = wordIndex === currentWordIndex && charIndex === word.length-1 && currentCharIndex>=word.length
-                                        return (
-                                            <span key={charIndex} className={`char ${typedChar?(isCorrect? 'correct' : 'incorrect'):''}`}>
-                                                {shouldCursor && <span className={'cursor'}></span> }
-                                                {char}
-                                                {shouldCursorRight && <span className={'cursor-right'}></span> }
-                                            </span>
-                                        )
-                                })}
-                            </span>
-                        ))
-                    }
+            {isCompleted ? (
+                <div className={'results'}>
+                    <h2>Results</h2>
+                    <p>WPM: {wpm}</p>
+                    <p>Accuracy: {accuracy}%</p>
                 </div>
-            </div>
+            ) : (
+                <div className={'typebox'} onClick={focusInput}>
+                    <div className={'words'}>
+                        {wordsArray.map((word, wordIndex) => (
+                            <span key={wordIndex} className={'word'}>
+                            {word.split('').map((char, charIndex) => {
+                                const typedChar = typedWords[wordIndex][charIndex];
+                                const isCorrect = typedChar && typedChar.correct;
+                                const shouldCursor =
+                                    wordIndex === currentWordIndex && charIndex === currentCharIndex;
+                                const shouldCursorRight =
+                                    wordIndex === currentWordIndex &&
+                                    charIndex === word.length - 1 &&
+                                    currentCharIndex >= word.length;
+                                return (
+                                    <span
+                                        key={charIndex}
+                                        className={`char ${typedChar ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
+                                    >
+                                        {shouldCursor && <span className={'cursor'}></span>}
+                                        {char}
+                                        {shouldCursorRight && <span className={'cursor-right'}></span>}
+                                    </span>
+                                );
+                            })}
+                        </span>
+                        ))}
+                    </div>
+                </div>
+            )}
             <input
                 type={"text"}
                 ref={inputRef}
@@ -128,5 +142,6 @@ export function TypeBox() {
                 onKeyDown={handleKeyDown}
             />
         </>
-    )
+    );
+
 }

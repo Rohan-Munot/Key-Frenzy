@@ -353,6 +353,7 @@ export const GlobalStyles = createGlobalStyle`
         align-items: center;
         justify-content: center;
         gap: 4px;
+        cursor: pointer;
     }
     .link-text{
         position: relative;
