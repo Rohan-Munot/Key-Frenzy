@@ -5,7 +5,7 @@ import {RestartLogo} from "../Assets/RestartLogo.jsx";
 
 export function TypeBox() {
     const [wordsArray, setWordsArray] = useState(()=>{
-        return generate(8)
+        return generate(32)
     })
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -86,7 +86,7 @@ export function TypeBox() {
     }
 
     const restartTest = ()=>{
-        setWordsArray(generate(8))
+        setWordsArray(generate(32))
         setCurrentWordIndex(0)
         setCurrentCharIndex(0)
         setTypedWords(Array(wordsArray.length).fill([]))
@@ -120,9 +120,9 @@ export function TypeBox() {
                         <p>WPM: {wpm}</p>
                         <p>Accuracy: {accuracy}%</p>
                     </div>
-                    <div className={'restart-parent'}>
+                    <div className={'restart-parent'} onClick={restartTest}>
                         <RestartLogo/>
-                        <div className={'restart-button'} onClick={restartTest}>Restart Test</div>
+                        <div className={'restart-button'} >Restart Test</div>
                     </div>
                 </>
             ) : (
