@@ -1,10 +1,11 @@
 import {useEffect, useRef, useState} from "react";
 import {generate} from 'random-words'
+import {RestartLogo} from "../Assets/RestartLogo.jsx";
 
 
 export function TypeBox() {
     const [wordsArray, setWordsArray] = useState(()=>{
-        return generate(12)
+        return generate(8)
     })
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -83,6 +84,18 @@ export function TypeBox() {
             inputRef.current.blur()
         }
     }
+
+    const restartTest = ()=>{
+        setWordsArray(generate(8))
+        setCurrentWordIndex(0)
+        setCurrentCharIndex(0)
+        setTypedWords(Array(wordsArray.length).fill([]))
+        setStartTime(null)
+        setWpm(0)
+        setAccuracy(0)
+        setIsCompleted(false)
+        inputRef.current.focus()
+    }
     useEffect(() => {
         if(isCompleted){
             console.log('WPM '+ wpm)
@@ -100,11 +113,18 @@ export function TypeBox() {
     return (
         <>
             {isCompleted ? (
-                <div className={'results'}>
-                    <h2>Results</h2>
-                    <p>WPM: {wpm}</p>
-                    <p>Accuracy: {accuracy}%</p>
-                </div>
+                <>
+
+                    <div className={'results'}>
+                        <h2>Results</h2>
+                        <p>WPM: {wpm}</p>
+                        <p>Accuracy: {accuracy}%</p>
+                    </div>
+                    <div className={'restart-parent'}>
+                        <RestartLogo/>
+                        <div className={'restart-button'} onClick={restartTest}>Restart Test</div>
+                    </div>
+                </>
             ) : (
                 <div className={'typebox'} onClick={focusInput}>
                     <div className={'words'}>

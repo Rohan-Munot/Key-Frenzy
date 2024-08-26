@@ -384,4 +384,33 @@ export const GlobalStyles = createGlobalStyle`
         padding: 3px;
         box-sizing: border-box;
     }
+    .restart-parent{
+        position: relative;
+        border-radius: 200px;
+        background-color: rgba(255, 255, 255, 0.12);
+        border: 1px rgba(255, 255, 255, 0.28);
+        box-sizing: border-box;
+        width: 162px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 28px 12px 16px;
+        gap: 8px;
+        text-align: left;
+        font-size: 16px;
+        color: #fff;
+        font-family: 'DM Sans',sans-serif;
+        cursor: pointer;
+    }
+    .restart-button{
+        position: relative;
+        line-height: 20px;
+        font-weight: 500;
+    }
+    .restart-logo{
+        width: 20px;
+        position: relative;
+        height: 20px;
+    }
 `

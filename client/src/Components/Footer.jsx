@@ -11,7 +11,7 @@ export function Footer() {
                 <div className={'frame-parent'}>
                     <div className={'frame-group'}>
                         <div className={'wrapper'}>
-                            <span className={'name-text'}>Rohan Munot : </span>
+                            <span className={'name-text'}>Project by Rohan Munot : </span>
                         </div>
                         <div className={'link-parent'} onClick={()=>{
                             window.open("https://github.com/Rohan-Munot","_blank")
@@ -31,7 +31,8 @@ export function Footer() {
                     <div className={'divider-2'} />
                     <div className={'frame-group'}>
                         <div className={'wrapper'}>
-                            <span className={'name-text'}>Sahil Prasoon : </span>
+                            <span className={'name-text'}>UI by Sahil Prasoon : </span>
+
                         </div>
                         <div className={'link-parent'}>
                             <GithubLogo />
